@@ -4,7 +4,8 @@ import HomeProducts from "./HomeProducts";
 import Mainfooter from "./Mainfooter";
 import Navbar from "./Navbar"
 export default function Home() {
-    localStorage.setItem("livetab", "home");
+  localStorage.setItem("livetab", "home");
+  let name = localStorage.getItem("name");
     return (
       
         <div><Navbar />
@@ -18,6 +19,7 @@ export default function Home() {
         </div>
         <div className="home-search">
           <input placeholder="🔎 An apple a day keeps the doctor away..." />
+          <h1>Hello <span>{name }</span> greens at your fingertips..</h1>
         </div>
         <Carousel/>
         <HomeProducts />

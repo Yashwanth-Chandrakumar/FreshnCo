@@ -429,9 +429,21 @@ li {
 
 .home-search {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
+.home-search>h1{
+  padding-top: 2rem;
+  font-weight: 800;
+}
+.home-search>h1>span{
+  padding-top: 2rem;
+  color:var(--btncolor);
+  font-weight: 800;
+}
+
 
 .home-search>input {
   height: 40px;
@@ -781,7 +793,7 @@ li {
 }
 
 .product-buy>ul>li:before {
-  content: "Rs.40/kg";
+  content:"";
   position: absolute;
   top:45%;
   right: 0;
@@ -806,7 +818,13 @@ li {
 }
 
 .product-buy>ul>li>div>p {
-  font-size: 2em;
+  position: absolute;
+  top:100%;
+  right: -20%;
+  width: 10%;
+  height: 100%;
+  transform: skewy(48deg);
+  font-size: 1em;
 }
 .product-buy>ul>li>div>h2 {
   font-size: 2rem;
