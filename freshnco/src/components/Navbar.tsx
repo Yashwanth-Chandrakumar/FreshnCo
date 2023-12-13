@@ -6,6 +6,7 @@ function NavBar() {
   let navigate = useNavigate();
   let tab = localStorage.getItem("livetab");
   let auth = localStorage.getItem("auth");
+  
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     if (e.currentTarget.innerText === "Logout") {
       localStorage.setItem("auth", "false");
@@ -48,7 +49,7 @@ function NavBar() {
                   </span>
                 </li>
               </Link>
-              <Link to="/products">
+              <Link to={auth==="true"?"/products":"/login"}>
                 <li className="nav-item">
                   <span
                     className={`nav-link align-text-bottom ${

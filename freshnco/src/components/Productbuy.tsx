@@ -24,14 +24,22 @@ export default function Productbuy() {
         { name: 'Brinjal', imageUrl: img3, price: 'Rs.25/kg' },
         { name: 'Spinach', imageUrl: img4, price: 'Rs.30/kg' },
         { name: 'Broccoli', imageUrl: img5, price: 'Rs.50/kg' },
-      ];
+        { name: '', imageUrl:'', price: '' },
+        { name: '', imageUrl:"", price: '' },
+        { name: '', imageUrl:"", price: '' },
+        { name: '', imageUrl:"", price: '' },
+        { name: '', imageUrl:"", price: '' },
+  ];
+  let name = localStorage.getItem("name");
     return (
       <div>
-              <NavBar />
+        <NavBar />
       <div className='product-buy'>
           
-              
+          <h1 style={{paddingLeft:"1rem",paddingBottom:"2rem",fontWeight:"800"}}><span style={{color:"var(--btncolor)"}}>{name}</span> here is your venue.</h1>
 
+          <h2 style={{ paddingLeft: "1rem" }}>Products in stock.</h2>
+          <hr/>
 <ul>
 {products.map((product, index) => (
             <li className="adidas" key={index}>

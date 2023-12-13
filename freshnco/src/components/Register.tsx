@@ -60,7 +60,7 @@ function Register() {
                     <div className="form-outline">
                       <input
                         type="text"
-                        id="fname" // Use a unique ID for each input field
+                        id="fname"
                         value={fname}
                         onChange={handleChange}
                         className="form-control"
@@ -72,7 +72,7 @@ function Register() {
                     <div className="form-outline">
                       <input
                         type="text"
-                        id="lname" // Use a unique ID for each input field
+                        id="lname" 
                         value={lname}
                         onChange={handleChange}
                         className="form-control"
@@ -84,7 +84,7 @@ function Register() {
                 <div className="form-outline mb-4">
                   <input
                     type="email"
-                    id="email" // Use a unique ID for each input field
+                    id="email" 
                     value={email}
                     onChange={handleChange}
                     className="form-control"
@@ -95,7 +95,7 @@ function Register() {
                 <div className="form-outline mb-4">
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password" // Use a unique ID for each input field
+                    id="password" 
                     value={password}
                     onChange={handleChange}
                     className="form-control"

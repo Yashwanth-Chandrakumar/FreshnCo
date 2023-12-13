@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Carousel from "./Carousel";
 import Fruitoftheday from "./Fruitoftheday";
 import HomeProducts from "./HomeProducts";
@@ -10,7 +11,7 @@ export default function Home() {
       
         <div><Navbar />
         <Fruitoftheday />
-        <div className="home-nav">
+        <div className="home-nav" >
           <p>Beverages</p>
           <p>Dairy</p>
           <p>Grains</p>

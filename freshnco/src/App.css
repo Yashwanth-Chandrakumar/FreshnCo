@@ -761,16 +761,6 @@ li {
   width: 100%;
 }
 
-/* .product-nav{
-  position: fixed;
-  top:0;
-  left:0;
-} */
-
-
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
-
 :root {
   --columns: 3;
 }
@@ -836,8 +826,8 @@ li {
   transform: translateX(-50%);
   width: 62%;
   bottom: -10%;
-  -webkit-filter: drop-shadow(0 50px 20px rgba(0, 0, 0, 0.20));
-  filter: drop-shadow(0 50px 20px rgba(0, 0, 0, 0.20));
+  -webkit-filter: drop-shadow(0 50px 20px rgba(0, 0, 0, 1));
+  filter: drop-shadow(0 50px 20px rgba(0, 0, 0, 0.4));
   transition-property: bottom, filter, -webkit-filter;
   transition-duration: .3s;
 }
@@ -845,7 +835,7 @@ li {
 .product-buy>ul>li>img:hover {
   bottom: 0;
   -webkit-filter: drop-shadow(0 80px 40px rgba(0, 0, 0, 0.20));
-  filter: drop-shadow(0 80px 30px rgba(0, 0, 0, 0.20));
+  filter: drop-shadow(0 80px 30px rgba(0, 0, 0, 0.30));
 }
 
 @media (min-width:600px) {

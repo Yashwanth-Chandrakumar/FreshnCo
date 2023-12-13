@@ -1,8 +1,8 @@
 
 import { useEffect } from "react";
-import img1 from "../assets/images/WhatsApp Image 2023-12-13 at 11.30.33 AM.jpeg";
-import img2 from "../assets/images/WhatsApp Image 2023-12-13 at 11.34.40 AM (1).jpeg";
-import img3 from "../assets/images/WhatsApp Image 2023-12-13 at 11.34.40 AM.jpeg";
+import img1 from "../assets/images/20231213_112930_0000.png";
+import img2 from "../assets/images/20231213_113305_0000.png";
+import img3 from "../assets/images/20231213_113305_0001.png";
 export default function Carousel() {
     useEffect(() => {
         const slidy = document.getElementById('slidy');
