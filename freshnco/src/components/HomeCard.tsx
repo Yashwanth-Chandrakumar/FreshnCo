@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 export default function HomeCard() {
     const cardData = [
@@ -46,16 +47,20 @@ export default function HomeCard() {
             description: 'Rich in protein, probiotics, and calcium. Supports gut health and provides a good source of energy.',
             image: 'https://www.notenoughcinnamon.com/wp-content/uploads/2021/03/No-Mayo-Potato-Salad-with-Greek-Yogurt-Dressing-1.jpg',
           },
-      ];
+  ];
+  let navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/products")
+  }
     return (
       
       <div className="homecards">
           {cardData.map((card, index) => (
-        <div key={index} className="cardh" style={{ backgroundImage: `url(${card.image})` }}>
+        <div key={index} className="cardh" style={{ backgroundImage: `url(${card.image})`,backgroundSize:"cover",backgroundPosition: "center"  }}>
           <div className="contenth">
             <h2 className="titleh">{card.title}</h2>
             <p className="copyh">{card.description}</p>
-            <button className="btnh">View Details</button>
+            <button className="btnh" onClick={handleClick}>View Details</button>
           </div>
         </div>
       ))}

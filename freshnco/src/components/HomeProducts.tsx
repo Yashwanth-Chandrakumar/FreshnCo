@@ -40,7 +40,7 @@ export default function HomeProducts() {
               </div>
           </div>
           <div className='Products'>
-              Greenies for you.
+              <p>Exclusive at Fresh & Co.</p>
               <HomeCard/>
           </div>
     </div>
