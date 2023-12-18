@@ -1,59 +1,85 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import NavBar from './Navbar';
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../store/CartSlice';
 
-import NavBar from './Navbar'
-import img1 from "../assets/images/tomato-realistic-image-vector-illustration_324395-282-removebg-preview.png";
-import img2 from "../assets/images/tomato.png";
-import img3 from "../assets/images/brinjal.png";
-import img4 from "../assets/images/spinach.png";
-import img5 from "../assets/images/broccoli.png"
-import img6 from "../assets/images/ladies.png"
 export default function Productbuy() {
-    localStorage.setItem("livetab", "products")
-    const products = [
-        { name: 'Red Tomatoes', imageUrl: img1, price: '40',class:"tomato" },
-        { name: 'Country Tomatoes', imageUrl: img2, price: '35',class:"tomato" },
-        { name: 'Brinjal', imageUrl: img3, price: '25',class:"brinjal" },
-        { name: 'Spinach', imageUrl: img4, price: '30',class:"spinach" },
-        { name: 'Broccoli', imageUrl: img5, price: '50',class:"broccoli" },
-        { name: 'Ladies finger', imageUrl: img6, price: '45',class:"ladies finger" },
-  ];
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.target.value.toLowerCase();
-    const listItems = document.querySelectorAll('li');
+
+  const [input, setInput] = useState('');
+  const dispatch = useDispatch()
+
+  localStorage.setItem("livetab", "products");
+  interface Product {
+    id: number;
+    name: string;
+    description: string;
+    imgurl: string;
+    seller: string;
+    price: number;
+    classification: string;
+  }
   
-    for (const item of listItems) {
-      const itemText = item.textContent?.toLowerCase();
-      if (!itemText?.includes(searchValue)) {
-        item.style.display = 'none';
-      } else {
-        item.style.display = 'block';
-      }
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const result = await axios.get("http://localhost:8080/products");
+      console.log("Products received");
+      setProducts(result.data)
+    } catch (error) {
+      console.error("Error sending data to the server:", error);
     }
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value.toLowerCase();
+    const listItems = document.querySelectorAll('article');
+
+    for (const item of listItems) {
+        const itemText = item.textContent?.toLowerCase();
+        if (!itemText?.includes(searchValue)) {
+            (item as HTMLElement).style.display = 'none';
+        } else {
+            (item as HTMLElement).style.display = 'block';
+        }
+    }
+};
+
+
+  const handleClick = (product: Product) => {
+    
+    dispatch(addToCart(product))
+  };
+
   let name = localStorage.getItem("name");
-    return (
-      <div >
-        <NavBar />
-        <div className='home-search' id='products-page'>
+
+  return (
+    <div>
+      <NavBar />
+      <div className='home-search' id='products-page'>
         <input placeholder="🔎 Eat veggies, feel invincible. Seriously." onChange={handleChange} />
-        </div>
-          <h1 style={{paddingTop:"2rem",paddingLeft:"1rem",paddingBottom:"2rem",fontWeight:"800"}}><span style={{color:"var(--btncolor)"}}>{name}</span> here is your venue.</h1>
-          <h2 style={{ paddingLeft: "1rem" }}>Products in stock.</h2>
+      </div>
+      <h1 style={{ paddingTop: "2rem", paddingLeft: "1rem", paddingBottom: "2rem", fontWeight: "800" }}><span style={{ color: "var(--btncolor)" }}>{name}</span> here is your venue.</h1>
+      <h2 style={{ paddingLeft: "1rem" }}>Products in stock.</h2>
       <div className='product-buy'>
-          <hr/>
-<ul>
-{products.map((product, index) => (
-            <li className="prod" key={index} id={product.class}>
-              <div>
-                <h2>{product.name}</h2>
-                <p>Rs.{product.price}/Kg</p>
+        <hr />
+        <div className='cards'>
+          {products.map((product, index) => (
+            <article id={product.classification} key={index} className="cardh" style={{ backgroundImage: `url(${product.imgurl})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+              <div className="contenth">
+                <h2 className="titleh">{product.name}</h2>
+                <p className="copyh">{product.description}</p>
+                <p className='seller' style={{ color: "var(--btncolor)" }}>From: <span style={{ color: "white" }}>{product.seller}</span></p>
+                <button className="btnh" onClick={()=>handleClick(product)}>Add to Cart{ product.price}</button>
               </div>
-              <img src={product.imageUrl} alt="" style={{ borderRadius: '10px' }} />
-            </li>
+            </article>
           ))}
-</ul>
-
-
         </div>
-            </div>
-  )
+      </div>
+    </div>
+  );
 }

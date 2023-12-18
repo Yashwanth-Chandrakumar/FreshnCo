@@ -44,7 +44,12 @@ function Login() {
         localStorage.setItem("auth", true.toString());
         console.log("Welcome, " + userName);
         setValid(true);
-        navigate("/");
+        if (loginData.email === "yashwanth2k05@gmail.com") {
+          navigate("/admin")
+        }
+        else {
+          navigate("/");
+        }
       } else {
         console.error("Unexpected response format:", response.data);
         setValid(false);
@@ -83,7 +88,7 @@ function Login() {
                 <div className="form-outline mb-4">
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="form3Example3"
+                    id="form3Example4"
                     value={loginData.password}
                     name="password"
                     className="form-control"

@@ -5,19 +5,22 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import Badge, { BadgeProps } from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-
+import { useSelector } from 'react-redux';
 function NavBar() {
   let navigate = useNavigate();
   let tab = localStorage.getItem("livetab");
   let auth = localStorage.getItem("auth");
   let name = localStorage.getItem("name") ?? "";
+
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     let txt = e.currentTarget.textContent;
     if (txt === "Login") {
       navigate("/login");
     }
   };
-  let count = 2;
+  const cart = useSelector((state: any) => state.cartReducer.cart);
+
+  const cartSize = cart.length;
   const StyledBadge = styled(Badge)<BadgeProps>(() => ({
     "& .MuiBadge-badge": {
       right: -3,
@@ -74,6 +77,7 @@ function NavBar() {
                   </span>
                 </li>
               </Link>
+              <Link to="/cart">
               <li className="nav-item">
                 <span
                   style={{ paddingTop: "0" }}
@@ -82,7 +86,7 @@ function NavBar() {
                   }`}
                 >
                   <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={count}>
+                    <StyledBadge badgeContent={cartSize}>
                       <LocalMallIcon
                         style={{
                           color: `${
@@ -96,7 +100,7 @@ function NavBar() {
                   </IconButton>
                 </span>
               </li>
-
+              </Link>
               <li className="nav-item dropdown">
                 <span
                   className={`nav-link`}
