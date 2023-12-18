@@ -8,6 +8,8 @@ interface Product {
   imgurl: string;
   seller: string;
   price: number;
+  offer: number;
+  classification: string;
 }
 
 const AddProduct: React.FC = () => {
@@ -19,13 +21,17 @@ const AddProduct: React.FC = () => {
     imgurl: "",
     seller: "",
     price: 0,
+    offer: 0,
+    classification:"",
   });
 
-  const { name, description, imgurl, seller, price } = product;
+
+  const { name, description, imgurl, seller, price, offer,classification } = product;
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
-  };
+  setProduct({ ...product, [e.target.name]: e.target.value });
+};
+
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -67,6 +73,19 @@ const AddProduct: React.FC = () => {
               />
             </div>
             <div className="mb-3">
+  <label htmlFor="Classification" className="form-label">
+    Classification
+  </label>
+  <input
+    type={"text"}
+    className="form-control"
+    placeholder="Enter product classification"
+    name="classification"
+    value={classification}
+    onChange={(e) => onInputChange(e)}
+  />
+</div>
+            <div className="mb-3">
               <label htmlFor="ImageURL" className="form-label">
                 Image URL
               </label>
@@ -102,6 +121,19 @@ const AddProduct: React.FC = () => {
                 placeholder="Enter product price"
                 name="price"
                 value={price}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="Offer" className="form-label">
+                Offer
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter product discount"
+                name="offer"
+                value={offer}
                 onChange={(e) => onInputChange(e)}
               />
             </div>

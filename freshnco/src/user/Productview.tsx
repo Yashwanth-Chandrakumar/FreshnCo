@@ -9,6 +9,7 @@ interface Product {
   imgurl: string;
   seller: string;
   price: number;
+  classification: string;
 }
 
 const Productview: React.FC = () => {
@@ -50,6 +51,7 @@ const Productview: React.FC = () => {
               <th scope="col">Image URL</th>
               <th scope="col">Seller</th>
               <th scope="col">Price</th>
+              <th scope="col">Classification</th> {/* Added Classification column */}
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -62,6 +64,7 @@ const Productview: React.FC = () => {
                 <td>{product.imgurl}</td>
                 <td>{product.seller}</td>
                 <td>{product.price}</td>
+                <td>{product.classification}</td> {/* Displaying Classification */}
                 <td>
                   <Link
                     className="btn btn-primary mx-2"
@@ -86,13 +89,13 @@ const Productview: React.FC = () => {
             ))}
           </tbody>
         </table>
-          <Link
-                    className="btn btn-outline-primary mx-2"
-                    to={`/addproduct`}
-                  >
-                    Add product
-                  </Link>
-          </div>
+        <Link
+          className="btn btn-outline-primary mx-2"
+          to={`/addproduct`}
+        >
+          Add product
+        </Link>
+      </div>
     </div>
   );
 };

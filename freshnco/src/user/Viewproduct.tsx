@@ -9,6 +9,7 @@ interface Product {
   imgurl: string;
   seller: string;
   price: number;
+  classification: string; // Add the classification field
 }
 
 const Viewproduct: React.FC = () => {
@@ -19,6 +20,7 @@ const Viewproduct: React.FC = () => {
     imgurl: "",
     seller: "",
     price: 0,
+    classification: "", // Initialize classification
   });
 
   const { id } = useParams();
@@ -60,6 +62,9 @@ const Viewproduct: React.FC = () => {
                 </li>
                 <li className="list-group-item">
                   <b>Price:</b> {product.price}
+                </li>
+                <li className="list-group-item">
+                  <b>Classification:</b> {product.classification} {/* Display classification */}
                 </li>
               </ul>
             </div>

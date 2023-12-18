@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import NavBar from './Navbar';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/CartSlice';
 
 export default function Productbuy() {
-
-  const [input, setInput] = useState('');
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   localStorage.setItem("livetab", "products");
+
   interface Product {
     id: number;
     name: string;
@@ -18,9 +17,11 @@ export default function Productbuy() {
     seller: string;
     price: number;
     classification: string;
+    offer: number; // Add offer
   }
-  
+
   const [products, setProducts] = useState<Product[]>([]);
+
   useEffect(() => {
     loadProducts();
   }, []);
@@ -28,10 +29,10 @@ export default function Productbuy() {
   const loadProducts = async () => {
     try {
       const result = await axios.get("http://localhost:8080/products");
-      console.log("Products received");
-      setProducts(result.data)
+      console.log("Products received", result.data);
+      setProducts(result.data);
     } catch (error) {
-      console.error("Error sending data to the server:", error);
+      console.error("Error fetching products:", error);
     }
   };
 
@@ -40,19 +41,17 @@ export default function Productbuy() {
     const listItems = document.querySelectorAll('article');
 
     for (const item of listItems) {
-        const itemText = item.textContent?.toLowerCase();
-        if (!itemText?.includes(searchValue)) {
-            (item as HTMLElement).style.display = 'none';
-        } else {
-            (item as HTMLElement).style.display = 'block';
-        }
+      const itemText = item.textContent?.toLowerCase();
+      if (!itemText?.includes(searchValue)) {
+        (item as HTMLElement).style.display = 'none';
+      } else {
+        (item as HTMLElement).style.display = 'block';
+      }
     }
-};
-
+  };
 
   const handleClick = (product: Product) => {
-    
-    dispatch(addToCart(product))
+    dispatch(addToCart(product));
   };
 
   let name = localStorage.getItem("name");
@@ -63,7 +62,9 @@ export default function Productbuy() {
       <div className='home-search' id='products-page'>
         <input placeholder="🔎 Eat veggies, feel invincible. Seriously." onChange={handleChange} />
       </div>
-      <h1 style={{ paddingTop: "2rem", paddingLeft: "1rem", paddingBottom: "2rem", fontWeight: "800" }}><span style={{ color: "var(--btncolor)" }}>{name}</span> here is your venue.</h1>
+      <h1 style={{ paddingTop: "2rem", paddingLeft: "1rem", paddingBottom: "2rem", fontWeight: "800" }}>
+        <span style={{ color: "var(--btncolor)" }}>{name}</span> here is your venue.
+      </h1>
       <h2 style={{ paddingLeft: "1rem" }}>Products in stock.</h2>
       <div className='product-buy'>
         <hr />
@@ -74,7 +75,10 @@ export default function Productbuy() {
                 <h2 className="titleh">{product.name}</h2>
                 <p className="copyh">{product.description}</p>
                 <p className='seller' style={{ color: "var(--btncolor)" }}>From: <span style={{ color: "white" }}>{product.seller}</span></p>
-                <button className="btnh" onClick={()=>handleClick(product)}>Add to Cart{ product.price}</button>
+                <p className='offer'>Offer: {product.offer}%</p> {/* Display offer */}
+                <button className="btnh" onClick={() => handleClick(product)}>
+                  Add to Cart - Price: ₹{product.price}
+                </button>
               </div>
             </article>
           ))}

@@ -9,6 +9,7 @@ interface Product {
   imgurl: string;
   seller: string;
   price: number;
+  classification: string;
 }
 
 const Editproduct: React.FC = () => {
@@ -22,9 +23,10 @@ const Editproduct: React.FC = () => {
     imgurl: "",
     seller: "",
     price: 0,
+    classification: "",
   });
 
-  const { name, description, imgurl, seller, price } = product;
+  const { name, description, imgurl, seller, price, classification } = product;
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -118,6 +120,19 @@ const Editproduct: React.FC = () => {
                 placeholder="Enter product price"
                 name="price"
                 value={price}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="Classification" className="form-label">
+                Classification
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter product classification"
+                name="classification"
+                value={classification}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
