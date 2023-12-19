@@ -42,7 +42,7 @@ const Productview: React.FC = () => {
     <div className="container">
       <h1>Edit Products</h1>
       <div className="py-4">
-        <table className="table border shadow">
+        <table className="product-table table border shadow">
           <thead>
             <tr>
               <th scope="col">S.N</th>
@@ -60,8 +60,8 @@ const Productview: React.FC = () => {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.imgurl}</td>
+                <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</td>
+                <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.imgurl}</td>
                 <td>{product.seller}</td>
                 <td>{product.price}</td>
                 <td>{product.classification}</td> {/* Displaying Classification */}

@@ -44,10 +44,13 @@ function Login() {
         localStorage.setItem("auth", true.toString());
         console.log("Welcome, " + userName);
         setValid(true);
+        localStorage.setItem("email", loginData.email);
         if (loginData.email === "yashwanth2k05@gmail.com") {
+          localStorage.setItem("admin","true")
           navigate("/admin")
         }
         else {
+          localStorage.setItem("admin","false")
           navigate("/");
         }
       } else {

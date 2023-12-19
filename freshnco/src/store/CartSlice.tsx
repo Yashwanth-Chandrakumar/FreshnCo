@@ -1,14 +1,14 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 interface Product {
-  id: number;
+  id: string; // Change the type to string
   name: string;
   description: string;
   imgurl: string;
   seller: string;
   price: number;
   classification: string;
-  offer: number; // Add the offer property
+  offer: number;
 }
 
 interface CartItem {

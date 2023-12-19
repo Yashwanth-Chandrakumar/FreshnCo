@@ -10,7 +10,8 @@ function NavBar() {
   let navigate = useNavigate();
   let tab = localStorage.getItem("livetab");
   let auth = localStorage.getItem("auth");
-  let name = localStorage.getItem("name") ?? "";
+  let name = localStorage.getItem("name")??"";
+  let admin = localStorage.getItem("admin");
 
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     let txt = e.currentTarget.textContent;
@@ -37,6 +38,9 @@ function NavBar() {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <span className="navbar-brand">Fresh & Co.</span>
+          <Link to="/admin">
+            <span style={{ display: admin === "true" ? "block" : "none", color:"var(--textcolor)" }}>View as admin</span>
+            </Link>
           <span className="dm">
             <DarkModeToggle />
           </span>
@@ -101,9 +105,12 @@ function NavBar() {
                 </span>
               </li>
               </Link>
+              <Link to={auth==="true"?"/dash":"/login"}>
               <li className="nav-item dropdown">
                 <span
-                  className={`nav-link`}
+                  className={`nav-link ${
+                    tab == "dash" ? "live" : ""
+                  }`}
                   id={auth === "true" ? "nav-account" : "nav-login"}
                   onClick={handleClick}
                 >
@@ -124,7 +131,8 @@ function NavBar() {
                     "Login"
                   )}
                 </span>
-              </li>
+                </li>
+                </Link>
             </ul>
           </div>
         </div>

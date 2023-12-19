@@ -6,6 +6,7 @@ interface User {
   fname: string;
   lname: string;
   email: string;
+  password: string;
 }
 
 const AddUser: React.FC = () => {
@@ -15,9 +16,10 @@ const AddUser: React.FC = () => {
       fname: "",
       lname: "",
       email: "",
+      password:"",
     });
   
-    const { fname, lname, email } = user;
+    const { fname, lname, email,password } = user;
   
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setUser({ ...user, [e.target.name]: e.target.value });
@@ -72,6 +74,19 @@ const AddUser: React.FC = () => {
                   placeholder="Enter your e-mail address"
                   name="email"
                   value={email}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type={"text"}
+                  className="form-control"
+                  placeholder="Enter your password"
+                  name="password"
+                  value={password}
                   onChange={(e) => onInputChange(e)}
                 />
               </div>

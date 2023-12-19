@@ -7,6 +7,7 @@ interface User {
   fname: string;
   lname: string;
   email: string;
+  password: string;
 }
 
 const Viewuser: React.FC = () => {
@@ -15,6 +16,7 @@ const Viewuser: React.FC = () => {
     fname: "",
     lname: "",
     email: "",
+    password:"",
   });
 
   const { id } = useParams();
@@ -50,6 +52,10 @@ const Viewuser: React.FC = () => {
                 </li>
                 <li className="list-group-item">
                   <b>Email:</b> {user.email}
+                </li>
+                <li className="list-group-item">
+                  <b>Password:</b> {user.password}
+                  
                 </li>
               </ul>
             </div>

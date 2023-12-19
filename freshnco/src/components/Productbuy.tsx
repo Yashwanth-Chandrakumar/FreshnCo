@@ -3,10 +3,14 @@ import axios from 'axios';
 import NavBar from './Navbar';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/CartSlice';
-
+import { useNavigate } from 'react-router-dom';
 export default function Productbuy() {
   const dispatch = useDispatch();
-
+  let navigate = useNavigate()
+  let auth = localStorage.getItem("auth");
+  if (auth === "false") {
+    navigate("/login")
+  }
   localStorage.setItem("livetab", "products");
 
   interface Product {
@@ -41,7 +45,7 @@ export default function Productbuy() {
     const listItems = document.querySelectorAll('article');
 
     for (const item of listItems) {
-      const itemText = item.textContent?.toLowerCase();
+      const itemText = item.id.toLowerCase();
       if (!itemText?.includes(searchValue)) {
         (item as HTMLElement).style.display = 'none';
       } else {
@@ -51,7 +55,8 @@ export default function Productbuy() {
   };
 
   const handleClick = (product: Product) => {
-    dispatch(addToCart(product));
+    const productId = product.id.toString();
+    dispatch(addToCart({ ...product, id: productId }));
   };
 
   let name = localStorage.getItem("name");
@@ -60,12 +65,12 @@ export default function Productbuy() {
     <div>
       <NavBar />
       <div className='home-search' id='products-page'>
-        <input placeholder="🔎 Eat veggies, feel invincible. Seriously." onChange={handleChange} />
+        <input placeholder="🔎 Eat veggies, feel invincible. Seriously."  onChange={handleChange} />
       </div>
-      <h1 style={{ paddingTop: "2rem", paddingLeft: "1rem", paddingBottom: "2rem", fontWeight: "800" }}>
+      <h1 style={{ paddingTop: "2rem", paddingLeft: "2rem", paddingBottom: "2rem", fontWeight: "800" }}>
         <span style={{ color: "var(--btncolor)" }}>{name}</span> here is your venue.
       </h1>
-      <h2 style={{ paddingLeft: "1rem" }}>Products in stock.</h2>
+      <h2 style={{ paddingLeft: "2rem" }}>Products in stock.</h2>
       <div className='product-buy'>
         <hr />
         <div className='cards'>
