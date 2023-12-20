@@ -18,14 +18,16 @@ const Admin: React.FC = () => {
   const [visiblePasswords, setVisiblePasswords] = useState<number[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const { id } = useParams();
-
+  console.log(id);
   useEffect(() => {
     loadUsers();
   }, []);
 
   const loadUsers = async () => {
     try {
-      const result = await axios.get<User[]>("http://localhost:8080/users");
+      const result = await axios.get<User[]>(
+        "http://localhost:8080/users"
+      );
       setUsers(result.data);
     } catch (error) {
       console.error("Error loading users:", error);
@@ -126,10 +128,7 @@ const Admin: React.FC = () => {
               ))}
             </tbody>
           </table>
-          <Link
-            className="btn btn-outline-primary mx-2"
-            to={`/adduser`}
-          >
+          <Link className="btn btn-outline-primary mx-2" to={`/adduser`}>
             Add user
           </Link>
         </div>

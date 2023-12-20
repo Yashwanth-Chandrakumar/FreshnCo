@@ -15,7 +15,7 @@ interface Product {
 const Productview: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { id } = useParams();
-
+  console.log(id)
   useEffect(() => {
     loadProducts();
   }, []);

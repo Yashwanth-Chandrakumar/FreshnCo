@@ -22,16 +22,15 @@ const AddProduct: React.FC = () => {
     seller: "",
     price: 0,
     offer: 0,
-    classification:"",
+    classification: "",
   });
 
-
-  const { name, description, imgurl, seller, price, offer,classification } = product;
+  const { name, description, imgurl, seller, price, offer, classification } =
+    product;
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  setProduct({ ...product, [e.target.name]: e.target.value });
-};
-
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -73,18 +72,18 @@ const AddProduct: React.FC = () => {
               />
             </div>
             <div className="mb-3">
-  <label htmlFor="Classification" className="form-label">
-    Classification
-  </label>
-  <input
-    type={"text"}
-    className="form-control"
-    placeholder="Enter product classification"
-    name="classification"
-    value={classification}
-    onChange={(e) => onInputChange(e)}
-  />
-</div>
+              <label htmlFor="Classification" className="form-label">
+                Classification
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter product classification"
+                name="classification"
+                value={classification}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="ImageURL" className="form-label">
                 Image URL

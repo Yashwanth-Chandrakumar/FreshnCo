@@ -16,7 +16,7 @@ const Viewuser: React.FC = () => {
     fname: "",
     lname: "",
     email: "",
-    password:"",
+    password: "",
   });
 
   const { id } = useParams();
@@ -27,7 +27,9 @@ const Viewuser: React.FC = () => {
 
   const loadUser = async () => {
     try {
-      const result = await axios.get<User>(`http://localhost:8080/user/${id}`);
+      const result = await axios.get<User>(
+        `http://localhost:8080/user/${id}`
+      );
       setUser(result.data);
     } catch (error) {
       console.error("Error loading user:", error);
@@ -55,7 +57,6 @@ const Viewuser: React.FC = () => {
                 </li>
                 <li className="list-group-item">
                   <b>Password:</b> {user.password}
-                  
                 </li>
               </ul>
             </div>
