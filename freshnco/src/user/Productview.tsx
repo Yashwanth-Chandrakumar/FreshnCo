@@ -51,7 +51,7 @@ const Productview: React.FC = () => {
               <th scope="col">Image URL</th>
               <th scope="col">Seller</th>
               <th scope="col">Price</th>
-              <th scope="col">Classification</th> {/* Added Classification column */}
+              <th scope="col">Classification</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -64,7 +64,7 @@ const Productview: React.FC = () => {
                 <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.imgurl}</td>
                 <td>{product.seller}</td>
                 <td>{product.price}</td>
-                <td>{product.classification}</td> {/* Displaying Classification */}
+                <td>{product.classification}</td> 
                 <td>
                   <Link
                     className="btn btn-primary mx-2"

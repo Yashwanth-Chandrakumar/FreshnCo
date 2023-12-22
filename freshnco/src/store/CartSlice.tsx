@@ -1,7 +1,7 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 interface Product {
-  id: string; // Change the type to string
+  id: string; 
   name: string;
   description: string;
   imgurl: string;
@@ -19,10 +19,12 @@ interface CartItem {
 
 interface CartState {
   cart: CartItem[];
+  totalCost: number;
 }
 
 const initialState: CartState = {
   cart: [],
+  totalCost:0,
 };
 
 export const CartSlice = createSlice({
@@ -37,7 +39,7 @@ export const CartSlice = createSlice({
       } else {
         const cartItem: CartItem = {
           id: nanoid(),
-          product: { ...action.payload, offer: action.payload.offer || 0 }, // Use the correct offer value or default to 0
+          product: { ...action.payload, offer: action.payload.offer || 0 }, 
           quantity: 1,
         };
         state.cart.push(cartItem);
@@ -51,19 +53,20 @@ export const CartSlice = createSlice({
     incrementQuantity: (state, action: PayloadAction<string>) => {
       const cartItem = state.cart.find((item) => item.id === action.payload);
       if (cartItem) {
-        // Ensure quantity is a valid number, default to 0
         cartItem.quantity = (cartItem.quantity || 1) + 1;
       }
     },
     decrementQuantity: (state, action: PayloadAction<string>) => {
       const cartItem = state.cart.find((item) => item.id === action.payload);
       if (cartItem && cartItem.quantity > 1) {
-        // Ensure quantity is a valid number, default to 0
         cartItem.quantity = (cartItem.quantity || 1) - 1;
       }
+    },
+    setTotalCost: (state, action: PayloadAction<number>) => {
+      state.totalCost = action.payload;
     },
   },
 });
 
-export const { addToCart, deleteCartItem, incrementQuantity, decrementQuantity } = CartSlice.actions;
+export const { addToCart, deleteCartItem, incrementQuantity, decrementQuantity ,setTotalCost} = CartSlice.actions;
 export default CartSlice.reducer;

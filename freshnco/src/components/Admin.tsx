@@ -56,7 +56,12 @@ const Admin: React.FC = () => {
   return (
     <>
       <Adminnav />
-
+      <div className="admin-content">
+        <div className="admin-sidebar">
+        <Link className="btn adduser btn-outline-primary mx-2" to={`/adduser`}>
+            Add user
+          </Link>
+        </div>
       <div className="container" id="admin-space">
         <h1>
           Welcome{" "}
@@ -128,12 +133,11 @@ const Admin: React.FC = () => {
               ))}
             </tbody>
           </table>
-          <Link className="btn btn-outline-primary mx-2" to={`/adduser`}>
-            Add user
-          </Link>
+          
         </div>
         <Productview />
-      </div>
+        </div>
+        </div>
     </>
   );
 };

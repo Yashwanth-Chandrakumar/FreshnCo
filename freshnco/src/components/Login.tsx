@@ -58,7 +58,7 @@ function Login() {
         setValid(false);
       }
     } catch (error) {
-      console.error("Error during login:", error); // Handle login error
+      console.error("Error during login:", error);
       setValid(false);
     }
   };

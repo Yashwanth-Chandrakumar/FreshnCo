@@ -14,6 +14,7 @@ import AddUser from './user/Adduser'
 import AddProduct from './user/Addproduct'
 import Cart from './components/Cart'
 import Userdash from './components/Userdash'
+import Payment from './components/Payment'
 function App(){
   return (
   
@@ -29,6 +30,7 @@ function App(){
           <Route path="/adduser" element={<AddUser />} />
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/dash" element={<Userdash/>}/>
+          <Route path="/payment" element={<Payment/>}/>
           <Route  path="/edituser/:id" element={<Edituser />} />
           <Route  path="/viewuser/:id" element={<Viewuser />} />
           <Route  path="/editproduct/:id" element={<Editproduct />} />

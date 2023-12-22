@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './Navbar';
 import { nanoid } from 'nanoid';
 
-import { deleteCartItem, incrementQuantity, decrementQuantity, addToCart } from '../store/CartSlice';
+import { deleteCartItem, incrementQuantity, decrementQuantity, addToCart ,setTotalCost} from '../store/CartSlice';
 import fruit from '../assets/icons/icon_17.png';
 import img0 from '../assets/icons/icon_0.png';
 import img1 from '../assets/icons/icon_1.png';
@@ -30,10 +30,11 @@ import img21 from '../assets/icons/icon_21.png';
 import img22 from '../assets/icons/icon_22.png';
 import img23 from '../assets/icons/icon_23.png';
 import img24 from '../assets/icons/icon_24.png';
+import { useNavigate } from 'react-router-dom';
 
 
 interface Product {
-  id: string; // Add the 'id' property
+  id: string; 
   name: string;
   description: string;
   imgurl: string;
@@ -92,17 +93,17 @@ const Cart: React.FC = () => {
       product: {
         id: nanoid(),
         name: item.title,
-        seller: item.seller, // Use default value or provide a fallback
+        seller: item.seller, 
         price: item.price,
-        description: item.description || 'Description not available', // Use default value or provide a fallback
-        imgurl: item.imgurl, // Use default value or provide a fallback
+        description: item.description || 'Description not available',
+        imgurl: item.imgurl, 
         classification: 'Unknown Classification',
-        offer: item.offer, // Use default value or provide a fallback
+        offer: item.offer,
       },
       quantity: 1,
     };
   
-    dispatch(addToCart(newItem.product));// Pass newItem.product as the payload
+    dispatch(addToCart(newItem.product));
     setDeletedItems((prevDeletedItems) =>
     prevDeletedItems.filter((deletedItem) => deletedItem.title !== item.title)
   );
@@ -113,13 +114,25 @@ const Cart: React.FC = () => {
       return (total + cartItem.product.price * cartItem.quantity);
     }, 0);
   };
-
   const calculateTotalDiscount = () => {
     return cart.reduce((total: number, cartItem: CartItem) => {
       return (total + (cartItem.product.price * cartItem.quantity) - cartItem.product.price * cartItem.quantity * (1 - cartItem.product.offer / 100));
     }, 0);
   };
+  let navigate = useNavigate()
+  const delivery = (calculateTotalPrice()-calculateTotalDiscount()) > 399 ? 0 : 40;
+  const totalcost = (calculateTotalPrice() + delivery - calculateTotalDiscount()).toFixed(2)
+  const Checkout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e);
+    dispatch(setTotalCost(parseFloat(totalcost)));
+    const totalCostAsNumber = parseFloat(totalcost);
 
+    if (totalCostAsNumber <= 40) {
+        alert("Add items to the cart to purchase something");
+    } else {
+        navigate("/payment");
+    }
+  }
   return (
     <div>
       <NavBar />
@@ -161,12 +174,12 @@ const Cart: React.FC = () => {
               <p>Total Price: ₹{calculateTotalPrice()}</p>
               <p>Discount: ₹{calculateTotalDiscount().toFixed(2)}</p>
               <p>
-                Delivery: {calculateTotalPrice() - calculateTotalDiscount() < 399 ? "₹40" : <span><s>₹40</s> Free</span>} </p>
+                Delivery: {delivery!=0 ? "₹40" : <span><s>₹40</s> Free</span>} </p>
 
               <hr />
-              <p>Total Amount: ₹{(calculateTotalPrice() - calculateTotalDiscount()).toFixed(2)}</p>
+              <p>Total Amount: ₹{totalcost}</p>
             </div>
-            <button
+            <button onClick={Checkout}
               type="submit"
               className="btn btn-primary btn-block mb-4"
             >
