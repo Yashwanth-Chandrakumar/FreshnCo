@@ -12,7 +12,7 @@ interface User {
 const Edituser: React.FC = () => {
   let navigate = useNavigate();
   const { id } = useParams();
-
+  console.log(id)
   const [user, setUser] = useState<User>({
     fname: "",
     lname: "",

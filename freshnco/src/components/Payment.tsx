@@ -1,8 +1,13 @@
 import { useSelector } from 'react-redux';
 import NavBar from './Navbar';
-import { deleteCartItem, incrementQuantity, decrementQuantity, addToCart ,setTotalCost} from '../store/CartSlice';
+import { deleteCartItem} from '../store/CartSlice';
 import { useDispatch} from 'react-redux';
-import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import { ChangeEvent,FormEvent } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 interface Product {
   id: string;
   name: string;
@@ -19,8 +24,62 @@ interface CartItem {
   product: Product;
   quantity: number;
 }
-export default function Payment() {
-  let name = localStorage.getItem("name") ?? ""
+
+interface User {
+  fid: number;
+  fname: string;
+  lname: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
+
+const Payment: React.FC = () => {
+  const [user, setUser] = useState<User>({
+    fid: 0,
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    pincode: "",
+  });
+  const { fname, lname, email, phone, address, city, state, pincode } = user;
+  let id = localStorage.getItem("userId")
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('Input changed:', e.target.id, e.target.value);
+    setUser({ ...user, [e.target.id]: e.target.value });
+  };
+  
+  useEffect(() => {
+    loadUser();
+  }, []);
+  const loadUser = async () => {
+    try {
+      const result = await axios.get<User>(`http://localhost:8080/user/${id}`);
+      setUser(result.data);
+    } catch (error) {
+      console.error("Error loading user:", error);
+    }
+  };
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8080/user/${id}`, user);
+      console.log('User details updated successfully');
+    } catch (error) {
+      console.error('Error updating user details:', error);
+    }
+  };
+  
   const totalCost = useSelector((state: { cartReducer: { totalCost: number } }) => state.cartReducer.totalCost);
   const cart = useSelector((state: { cartReducer: { cart: CartItem[] } }) => state.cartReducer.cart);
   const dispatch = useDispatch();
@@ -29,32 +88,7 @@ export default function Payment() {
     dispatch(deleteCartItem(id));
   };
 
-  const handleIncrement = (id: string) => {
-    dispatch(incrementQuantity(id));
-  };
-
-  const handleDecrement = (id: string) => {
-    dispatch(decrementQuantity(id));
-  };
-
-  const handleRestoreToCart = (item: { title: string; price: number; seller: string; description?: string; imgurl: string; offer: number }) => {
-    const newItem: CartItem = {
-      id: nanoid(),
-      product: {
-        id: nanoid(),
-        name: item.title,
-        seller: item.seller,
-        price: item.price,
-        description: item.description || 'Description not available',
-        imgurl: item.imgurl,
-        classification: 'Unknown Classification',
-        offer: item.offer,
-      },
-      quantity: 1,
-    };
-
-    dispatch(addToCart(newItem.product));
-  };
+  
     return (
       <div>
         <NavBar />
@@ -74,12 +108,6 @@ export default function Payment() {
                     <p>Qty: {cartItem.quantity}</p>
                   
                 </div>
-                {/* <div className='cart-item-price'>
-                  <p>Your price: ₹{Math.round(cartItem.product.price * cartItem.quantity * (1 - cartItem.product.offer / 100))}</p>
-                  <p>Real price: ₹{Math.round(cartItem.product.price * cartItem.quantity)}</p>
-                  <p>You saved: ₹{Math.round((cartItem.product.price * cartItem.quantity) - (cartItem.product.price * cartItem.quantity * (1 - cartItem.product.offer / 100)))}</p>
-                  
-                </div> */}
                 <div className='payment-cart-buttons'>
                   <button className='cart-remove btn btn-warning btn-block' onClick={() => handleDelete(cartItem.id)}>Delete</button>
                 </div>
@@ -91,24 +119,23 @@ export default function Payment() {
 
           </div>
           <div className='payment-address'>
-            <form >
+            
               <p>2. Delivery Address</p>
               <p style={{fontSize:"0.9rem",color:"grey"}}>All fields are required*</p>
-                <div className="row">
+              <form onSubmit={onSubmit}>
                   <div className="col-md-12 mb-4">
                     <div className="form-outline">
                       <label className="form-label">First Name</label>
                       <input
                         type="text"
                         id="fname"
-                      value={name}
+                      value={fname}
                       placeholder='Enter your first name'
-                        // onChange={handleChange}
+                        onChange={(e) => onInputChange(e)}
                         className="form-control"
                       />
                     </div>
                   </div>
-                </div>
                   <div className="col-md-12 mb-4">
                     <div className="form-outline">
                       <label className="form-label">Last Name</label>
@@ -116,8 +143,8 @@ export default function Payment() {
                         type="text"
                     id="lname" 
                     placeholder='Enter your last name'
-                        // value={lname}
-                        // onChange={handleChange}
+                        value={lname}
+                        onChange={(e) => onInputChange(e)}
                         className="form-control"
                       />
                     </div>
@@ -127,8 +154,8 @@ export default function Payment() {
                   <input
                     type="email"
                     id="email" 
-                    // value={email}
-                  // onChange={handleChange}
+                    value={email}
+                  onChange={(e) => onInputChange(e)}
                   placeholder='Enter your email'
                     className="form-control"
                   />
@@ -137,10 +164,10 @@ export default function Payment() {
                 <div className="form-outline col-md-12 mb-4">
                   <label className="form-label">Phone number</label>
                   <input
-                    // type={showPassword ? "text" : "password"}
-                    id="password" 
-                    // value={password}
-                  // onChange={handleChange}
+                    type='number'
+                    id="phone" 
+                    value={phone}
+                  onChange={(e) => onInputChange(e)}
                   placeholder='Enter your phone number'
                     className="form-control"
                   />
@@ -149,10 +176,10 @@ export default function Payment() {
                 <div className="form-outline col-md-12 mb-4">
                   <label className="form-label">Address</label>
                   <input
-                    // type={showPassword ? "text" : "password"}
-                    id="password" 
-                    // value={password}
-                  // onChange={handleChange}
+                    type='text'
+                    id="address" 
+                    value={address}
+                  onChange={(e) => onInputChange(e)}
                   placeholder='Enter your address'
                     className="form-control"
                   />
@@ -160,11 +187,11 @@ export default function Payment() {
                 </div>
                 <div className="form-outline col-md-12 mb-4">
                   <label className="form-label">City</label>
-                  <input
-                    // type={showPassword ? "text" : "password"}
-                    id="password" 
-                    // value={password}
-                  // onChange={handleChange}
+                <input
+                  type='text'
+                    id="city" 
+                    value={city}
+                  onChange={(e) => onInputChange(e)}
                   placeholder='Enter your city'
                     className="form-control"
                   />
@@ -173,32 +200,33 @@ export default function Payment() {
                 <div className="form-outline col-md-12 mb-4">
                   <label className="form-label">State</label>
                   <input
-                    // type={showPassword ? "text" : "password"}
-                    id="password" 
-                    // value={password}
-                  // onChange={handleChange}
+                    type='text'
+                    id="state" 
+                    value={state}
+                  onChange={(e) => onInputChange(e)}
                   placeholder='Enter your state'
                     className="form-control"
                   />
                 </div>
                 <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">Zipcode</label>
+                  <label className="form-label">pincode</label>
                   <input
-                    // type={showPassword ? "text" : "password"}
-                    id="password" 
-                    // value={password}
-                  // onChange={handleChange}
-                  placeholder='Enter your zipcode'
+                    type='text'
+                    id="pincode" 
+                    value={pincode}
+                  onChange={(e) => onInputChange(e)}
+                  placeholder='Enter your pincode'
                     className="form-control"
                   />
               </div>
+              
               <div className='payment-address-button'>
               <button
               type="submit"
               className="btn btn-primary btn-block mb-4">
                 Save
                 </button>
-                </div>
+              </div>
               </form>
           </div>
           <div className='payment-credit'>
@@ -208,3 +236,4 @@ export default function Payment() {
       </div>
     );
 }
+export default Payment;

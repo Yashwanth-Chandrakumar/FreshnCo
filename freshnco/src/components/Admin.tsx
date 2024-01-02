@@ -87,7 +87,7 @@ const Admin: React.FC = () => {
             <tbody>
               {users.map((user, index) => (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
+                  <th scope="row">{user.id}</th>
                   <td>{user.fname}</td>
                   <td>{user.lname}</td>
                   <td>{user.email}</td>

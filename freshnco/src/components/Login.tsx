@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
-import login from '../assets/images/7706807.jpg';
+import login from "../assets/images/7706807.jpg";
 function Login() {
   let navigate = useNavigate();
   const [loginData, setLoginData] = useState({
@@ -39,18 +39,23 @@ function Login() {
       const successMessage = "Login successful";
 
       if (response.data.startsWith(successMessage)) {
-        const userName = response.data.substring(successMessage.length).trim();
-        localStorage.setItem("name", userName);
-        localStorage.setItem("auth", true.toString());
-        console.log("Welcome, " + userName);
+        const responseMessage = response.data
+          .substring(successMessage.length)
+          .trim();
+        const [userName, userId] = responseMessage.split(",");
+        const cleanedUserName = userName.replace(/[\[\]\s]+/g, "");
+        const cleanedUserId = userId.replace(/[\[\]\s]+/g, "");
+        localStorage.setItem("name", cleanedUserName);
+        localStorage.setItem("userId", cleanedUserId);
+        console.log("Welcome, " + userName + userId);
+        localStorage.setItem("auth", "true");
         setValid(true);
         localStorage.setItem("email", loginData.email);
         if (loginData.email === "yashwanth2k05@gmail.com") {
-          localStorage.setItem("admin","true")
-          navigate("/admin")
-        }
-        else {
-          localStorage.setItem("admin","false")
+          localStorage.setItem("admin", "true");
+          navigate("/admin");
+        } else {
+          localStorage.setItem("admin", "false");
           navigate("/");
         }
       } else {
@@ -156,7 +161,7 @@ function Login() {
             height="100%"
             width="100%"
             className="rounded-100 shadow-100"
-                      alt="login image"
+            alt="login image"
           />
         </div>
       </div>

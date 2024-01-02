@@ -10,7 +10,8 @@ export default function Mainfooter() {
                     <InstagramIcon style={{color:"var(--btncolor)"}}/>
                     <TwitterIcon style={{color:"var(--btncolor)"}}/>
                 </div>
-                </div>
+        </div>
+        <div className='foot-links'>
         <ul className="footer-ref">
           <span>Quick links</span>
           <li>Quality Ref.</li>
@@ -24,7 +25,8 @@ export default function Mainfooter() {
           <li>Newsroom</li>
           <li>Security</li>
           <li>Privacy Policy</li>
-        </ul>
+          </ul>
+          </div>
         <h4 className="copyright">&copy;Fresh & Co. {dateon}</h4>
       </div>
     );
