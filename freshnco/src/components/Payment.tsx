@@ -5,7 +5,6 @@ import { useDispatch} from 'react-redux';
 import { useState } from 'react';
 import { ChangeEvent,FormEvent } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 interface Product {
