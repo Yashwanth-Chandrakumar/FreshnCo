@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
 const Fruitoftheday = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
