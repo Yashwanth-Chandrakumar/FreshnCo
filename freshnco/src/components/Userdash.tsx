@@ -36,9 +36,9 @@ export default function () {
               bgcolor: 'var(--btncolor)',
               fontFamily: 'var(--body-font)',
               fontWeight: 600,
-              height: 200,
-              width: 200,
-              fontSize: '8rem',
+              height: 80,
+              width:80,
+              fontSize: 'var(--big-font-size)',
             }}
           >
             {name.charAt(0)}
