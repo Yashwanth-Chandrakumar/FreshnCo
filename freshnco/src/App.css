@@ -249,13 +249,13 @@ li {
   justify-content: center;
   z-index: 999999;
 }
-
 .fruitoftheday {
   display: flex;
   justify-content: center;
   align-items: center;
 
 }
+
 
 .product {
   display: grid;
@@ -266,7 +266,18 @@ li {
   border-radius: 5px;
   border: 2px solid #96e001;
 }
-
+@media screen and (max-width:820px) {
+  .Modal{
+  transform: translate(20%,0%);
+  height: 100vh;
+  }
+  .product{
+    width: 90%;
+  }
+  .description{
+    display: none;
+  }
+}
 /* ----- Photo Section ----- */
 .product__photo {
   position: relative;
@@ -395,7 +406,7 @@ li {
 .description ul {
   font-size: 0.8em;
   list-style: disc;
-  margin-left: 1em;
+  padding: 0;
 }
 
 .description li {
