@@ -1171,9 +1171,12 @@ li {
   align-items: center;
   overflow-y: hidden;
 }
-.loader-img{
-  height: 60vh;
-   width: 40%;
+@media screen and (min-width:820px) {
+  .loader-gif{
+    height: 60vh;
+     width: 40%;
+  }
+  
 }
 
 /* Payment page */
