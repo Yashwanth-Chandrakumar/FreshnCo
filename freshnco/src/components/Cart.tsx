@@ -182,6 +182,7 @@ const Cart: React.FC = () => {
     delivery -
     calculateTotalDiscount()
   ).toFixed(2);
+  
   const Checkout = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(e);
     dispatch(setTotalCost(parseFloat(totalcost)));

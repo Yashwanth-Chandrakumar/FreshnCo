@@ -87,9 +87,6 @@ const Payment: React.FC = () => {
   );
   const dispatch = useDispatch();
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteCartItem(id));
-  };
 
   return (
     <div>
@@ -120,12 +117,7 @@ const Payment: React.FC = () => {
                   <p>Qty: {cartItem.quantity}</p>
                 </div>
                 <div className="payment-cart-buttons">
-                  <button
-                    className="cart-remove btn btn-warning btn-block"
-                    onClick={() => handleDelete(cartItem.id)}
-                  >
-                    Delete
-                  </button>
+                  
                 </div>
               </li>
             ))}
