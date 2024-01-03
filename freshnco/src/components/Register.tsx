@@ -7,7 +7,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
 import axios from "axios";
-import regimg from "../assets/images/3945191.jpg"
+import regimg from "../assets/images/3945191.jpg";
 function Register() {
   let navigate = useNavigate();
   useEffect(() => {
@@ -72,7 +72,7 @@ function Register() {
                     <div className="form-outline">
                       <input
                         type="text"
-                        id="lname" 
+                        id="lname"
                         value={lname}
                         onChange={handleChange}
                         className="form-control"
@@ -84,7 +84,7 @@ function Register() {
                 <div className="form-outline mb-4">
                   <input
                     type="email"
-                    id="email" 
+                    id="email"
                     value={email}
                     onChange={handleChange}
                     className="form-control"
@@ -95,7 +95,7 @@ function Register() {
                 <div className="form-outline mb-4">
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password" 
+                    id="password"
                     value={password}
                     onChange={handleChange}
                     className="form-control"

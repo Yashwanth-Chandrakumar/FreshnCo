@@ -1,11 +1,11 @@
-import { useSelector } from 'react-redux';
-import NavBar from './Navbar';
-import { deleteCartItem} from '../store/CartSlice';
-import { useDispatch} from 'react-redux';
-import { useState } from 'react';
-import { ChangeEvent,FormEvent } from 'react';
-import { useEffect } from 'react';
-import axios from 'axios';
+import { useSelector } from "react-redux";
+import NavBar from "./Navbar";
+import { deleteCartItem } from "../store/CartSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { ChangeEvent, FormEvent } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 interface Product {
   id: string;
@@ -36,7 +36,6 @@ interface User {
   pincode: string;
 }
 
-
 const Payment: React.FC = () => {
   const [user, setUser] = useState<User>({
     fid: 0,
@@ -50,13 +49,13 @@ const Payment: React.FC = () => {
     pincode: "",
   });
   const { fname, lname, email, phone, address, city, state, pincode } = user;
-  let id = localStorage.getItem("userId")
+  let id = localStorage.getItem("userId");
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('Input changed:', e.target.id, e.target.value);
+    console.log("Input changed:", e.target.id, e.target.value);
     setUser({ ...user, [e.target.id]: e.target.value });
   };
-  
+
   useEffect(() => {
     loadUser();
   }, []);
@@ -73,166 +72,184 @@ const Payment: React.FC = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:8080/user/${id}`, user);
-      console.log('User details updated successfully');
+      console.log("User details updated successfully");
     } catch (error) {
-      console.error('Error updating user details:', error);
+      console.error("Error updating user details:", error);
     }
   };
-  
-  const totalCost = useSelector((state: { cartReducer: { totalCost: number } }) => state.cartReducer.totalCost);
-  const cart = useSelector((state: { cartReducer: { cart: CartItem[] } }) => state.cartReducer.cart);
+
+  const totalCost = useSelector(
+    (state: { cartReducer: { totalCost: number } }) =>
+      state.cartReducer.totalCost
+  );
+  const cart = useSelector(
+    (state: { cartReducer: { cart: CartItem[] } }) => state.cartReducer.cart
+  );
   const dispatch = useDispatch();
 
   const handleDelete = (id: string) => {
     dispatch(deleteCartItem(id));
   };
 
-  
-    return (
-      <div>
-        <NavBar />
-        <div className='payment-content'>
-          <div className='payment-cart'>
-            <p>1. Current orders</p>
-            <ul className='payment-cart-list'>
+  return (
+    <div>
+      <NavBar />
+      <div className="payment-content">
+        <div className="payment-cart">
+          <p>1. Current orders</p>
+          <ul className="payment-cart-list">
             {cart.map((cartItem: CartItem) => (
-              <li key={cartItem.id} className='payment-cart-item'>
-                <div className='payment-cart-img' style={{ backgroundImage: `url(${cartItem.product.imgurl})`, backgroundPosition: "center", backgroundSize: "cover", height: "110px", width: "110px", borderRadius: "10px" }}>
-                  <p className='payment-offer'>{cartItem.product.offer}%</p>
+              <li key={cartItem.id} className="payment-cart-item">
+                <div
+                  className="payment-cart-img"
+                  style={{
+                    backgroundImage: `url(${cartItem.product.imgurl})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    height: "110px",
+                    width: "110px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <p className="payment-offer">{cartItem.product.offer}%</p>
                 </div>
-                <div className='payment-cart-item-details'>
+                <div className="payment-cart-item-details">
                   <p>{cartItem.product.name}</p>
                   <p>Price: ₹{cartItem.product.price}/Kg</p>
-                  
-                    <p>Qty: {cartItem.quantity}</p>
-                  
+
+                  <p>Qty: {cartItem.quantity}</p>
                 </div>
-                <div className='payment-cart-buttons'>
-                  <button className='cart-remove btn btn-warning btn-block' onClick={() => handleDelete(cartItem.id)}>Delete</button>
+                <div className="payment-cart-buttons">
+                  <button
+                    className="cart-remove btn btn-warning btn-block"
+                    onClick={() => handleDelete(cartItem.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </li>
             ))}
-            </ul>
-            <hr />
-            <p style={{textAlign:"right", color:"grey"}}>Total Cost: <span style={{color:"var(--textcolor)"}}>₹{totalCost.toFixed(2)}</span></p>
-
-          </div>
-          <div className='payment-address'>
-            
-              <p>2. Delivery Address</p>
-              <p style={{fontSize:"0.9rem",color:"grey"}}>All fields are required*</p>
-              <form onSubmit={onSubmit}>
-                  <div className="col-md-12 mb-4">
-                    <div className="form-outline">
-                      <label className="form-label">First Name</label>
-                      <input
-                        type="text"
-                        id="fname"
-                      value={fname}
-                      placeholder='Enter your first name'
-                        onChange={(e) => onInputChange(e)}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-12 mb-4">
-                    <div className="form-outline">
-                      <label className="form-label">Last Name</label>
-                      <input
-                        type="text"
-                    id="lname" 
-                    placeholder='Enter your last name'
-                        value={lname}
-                        onChange={(e) => onInputChange(e)}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">Email address</label>
-                  <input
-                    type="email"
-                    id="email" 
-                    value={email}
-                  onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your email'
-                    className="form-control"
-                  />
-                </div>
-
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">Phone number</label>
-                  <input
-                    type='number'
-                    id="phone" 
-                    value={phone}
-                  onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your phone number'
-                    className="form-control"
-                  />
-                  
-                </div>
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">Address</label>
-                  <input
-                    type='text'
-                    id="address" 
-                    value={address}
-                  onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your address'
-                    className="form-control"
-                  />
-                  
-                </div>
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">City</label>
+          </ul>
+          <hr />
+          <p style={{ textAlign: "right", color: "grey" }}>
+            Total Cost:{" "}
+            <span style={{ color: "var(--textcolor)" }}>
+              ₹{totalCost.toFixed(2)}
+            </span>
+          </p>
+        </div>
+        <div className="payment-address">
+          <p>2. Delivery Address</p>
+          <p style={{ fontSize: "0.9rem", color: "grey" }}>
+            All fields are required*
+          </p>
+          <form onSubmit={onSubmit}>
+            <div className="col-md-12 mb-4">
+              <div className="form-outline">
+                <label className="form-label">First Name</label>
                 <input
-                  type='text'
-                    id="city" 
-                    value={city}
+                  type="text"
+                  id="fname"
+                  value={fname}
+                  placeholder="Enter your first name"
                   onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your city'
-                    className="form-control"
-                  />
-                  
-                </div>
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">State</label>
-                  <input
-                    type='text'
-                    id="state" 
-                    value={state}
-                  onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your state'
-                    className="form-control"
-                  />
-                </div>
-                <div className="form-outline col-md-12 mb-4">
-                  <label className="form-label">pincode</label>
-                  <input
-                    type='text'
-                    id="pincode" 
-                    value={pincode}
-                  onChange={(e) => onInputChange(e)}
-                  placeholder='Enter your pincode'
-                    className="form-control"
-                  />
+                  className="form-control"
+                />
               </div>
-              
-              <div className='payment-address-button'>
-              <button
-              type="submit"
-              className="btn btn-primary btn-block mb-4">
-                Save
-                </button>
+            </div>
+            <div className="col-md-12 mb-4">
+              <div className="form-outline">
+                <label className="form-label">Last Name</label>
+                <input
+                  type="text"
+                  id="lname"
+                  placeholder="Enter your last name"
+                  value={lname}
+                  onChange={(e) => onInputChange(e)}
+                  className="form-control"
+                />
               </div>
-              </form>
-          </div>
-          <div className='payment-credit'>
+            </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">Email address</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your email"
+                className="form-control"
+              />
+            </div>
 
-          </div>
-          </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">Phone number</label>
+              <input
+                type="number"
+                id="phone"
+                value={phone}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your phone number"
+                className="form-control"
+              />
+            </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">Address</label>
+              <input
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your address"
+                className="form-control"
+              />
+            </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">City</label>
+              <input
+                type="text"
+                id="city"
+                value={city}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your city"
+                className="form-control"
+              />
+            </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">State</label>
+              <input
+                type="text"
+                id="state"
+                value={state}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your state"
+                className="form-control"
+              />
+            </div>
+            <div className="form-outline col-md-12 mb-4">
+              <label className="form-label">pincode</label>
+              <input
+                type="text"
+                id="pincode"
+                value={pincode}
+                onChange={(e) => onInputChange(e)}
+                placeholder="Enter your pincode"
+                className="form-control"
+              />
+            </div>
+
+            <div className="payment-address-button">
+              <button type="submit" className="btn btn-primary btn-block mb-4">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="payment-credit">
+          Payment card
+        </div>
       </div>
-    );
-}
+    </div>
+  );
+};
 export default Payment;

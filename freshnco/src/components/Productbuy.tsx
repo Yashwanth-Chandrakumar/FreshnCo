@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import NavBar from './Navbar';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../store/CartSlice';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import NavBar from "./Navbar";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/CartSlice";
+import { useNavigate } from "react-router-dom";
 export default function Productbuy() {
   const dispatch = useDispatch();
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   let auth = localStorage.getItem("auth");
   if (auth === "false") {
-    navigate("/login")
+    navigate("/login");
   }
   localStorage.setItem("livetab", "products");
 
@@ -42,14 +42,14 @@ export default function Productbuy() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value.toLowerCase();
-    const listItems = document.querySelectorAll('article');
+    const listItems = document.querySelectorAll("article");
 
     for (const item of listItems) {
       const itemText = item.id.toLowerCase();
       if (!itemText?.includes(searchValue)) {
-        (item as HTMLElement).style.display = 'none';
+        (item as HTMLElement).style.display = "none";
       } else {
-        (item as HTMLElement).style.display = 'block';
+        (item as HTMLElement).style.display = "block";
       }
     }
   };
@@ -64,23 +64,46 @@ export default function Productbuy() {
   return (
     <div>
       <NavBar />
-      <div className='home-search' id='products-page'>
-        <input placeholder="🔎 Eat veggies, feel invincible. Seriously."  onChange={handleChange} />
+      <div className="home-search" id="products-page">
+        <input
+          placeholder="🔎 Eat veggies, feel invincible. Seriously."
+          onChange={handleChange}
+        />
       </div>
-      <h1 style={{ paddingTop: "2rem", paddingLeft: "2rem", paddingBottom: "2rem", fontWeight: "800" }}>
-        <span style={{ color: "var(--btncolor)" }}>{name}</span> here is your venue.
+      <h1
+        style={{
+          paddingTop: "2rem",
+          paddingLeft: "2rem",
+          paddingBottom: "2rem",
+          fontWeight: "800",
+        }}
+      >
+        <span style={{ color: "var(--btncolor)" }}>{name}</span> here is your
+        venue.
       </h1>
       <h2 style={{ paddingLeft: "2rem" }}>Products in stock.</h2>
-      <div className='product-buy'>
+      <div className="product-buy">
         <hr />
-        <div className='cards'>
+        <div className="cards">
           {products.map((product, index) => (
-            <article id={product.classification} key={index} className="cardh" style={{ backgroundImage: `url(${product.imgurl})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+            <article
+              id={product.classification}
+              key={index}
+              className="cardh"
+              style={{
+                backgroundImage: `url(${product.imgurl})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
               <div className="contenth">
                 <h2 className="titleh">{product.name}</h2>
                 <p className="copyh">{product.description}</p>
-                <p className='seller' style={{ color: "var(--btncolor)" }}>From: <span style={{ color: "white" }}>{product.seller}</span></p>
-                <p className='offer'>Offer: {product.offer}%</p> {/* Display offer */}
+                <p className="seller" style={{ color: "var(--btncolor)" }}>
+                  From: <span style={{ color: "white" }}>{product.seller}</span>
+                </p>
+                <p className="offer">Offer: {product.offer}%</p>{" "}
+                {/* Display offer */}
                 <button className="btnh" onClick={() => handleClick(product)}>
                   Add to Cart - Price: ₹{product.price}
                 </button>

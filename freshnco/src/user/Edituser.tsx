@@ -12,12 +12,12 @@ interface User {
 const Edituser: React.FC = () => {
   let navigate = useNavigate();
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   const [user, setUser] = useState<User>({
     fname: "",
     lname: "",
     email: "",
-    password:"",
+    password: "",
   });
 
   const { fname, lname, email, password } = user;
@@ -46,8 +46,7 @@ const Edituser: React.FC = () => {
   };
 
   return (
-      <div className="container">
-          
+    <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
           <h2 className="text-center m-4">Edit User</h2>

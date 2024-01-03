@@ -9,7 +9,7 @@ interface Product {
   imgurl: string;
   seller: string;
   price: number;
-  classification: string; 
+  classification: string;
 }
 
 const Viewproduct: React.FC = () => {
@@ -20,7 +20,7 @@ const Viewproduct: React.FC = () => {
     imgurl: "",
     seller: "",
     price: 0,
-    classification: "", 
+    classification: "",
   });
 
   const { id } = useParams();
@@ -31,7 +31,9 @@ const Viewproduct: React.FC = () => {
 
   const loadProduct = async () => {
     try {
-      const result = await axios.get<Product>(`http://localhost:8080/product/${id}`);
+      const result = await axios.get<Product>(
+        `http://localhost:8080/product/${id}`
+      );
       setProduct(result.data);
     } catch (error) {
       console.error("Error loading product:", error);
@@ -64,7 +66,7 @@ const Viewproduct: React.FC = () => {
                   <b>Price:</b> {product.price}
                 </li>
                 <li className="list-group-item">
-                  <b>Classification:</b> {product.classification} 
+                  <b>Classification:</b> {product.classification}
                 </li>
               </ul>
             </div>

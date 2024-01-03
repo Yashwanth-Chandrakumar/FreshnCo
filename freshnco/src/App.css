@@ -1198,7 +1198,6 @@ li {
   gap: 3%;
   width: 100%;
 }
-
 .payment-address {
   width: 30%;
   background-color: var(--greybg);
@@ -1207,6 +1206,7 @@ li {
   padding: 2rem;
   border-radius: 10px;
 }
+
 
 .payment-address label {
   text-align: center;
@@ -1234,7 +1234,23 @@ li {
   border-radius: 10px;
   padding: 2rem;
 }
-
+@media screen and (max-width:820px) {
+  .payment-content{
+    display: flex;
+    padding-top: 5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .payment-address{
+    width: 90%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .payment-cart{
+    width: 90%;
+  }
+}
 .payment-cart-item {
   display: flex;
   width: 100%;

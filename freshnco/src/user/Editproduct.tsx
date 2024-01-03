@@ -44,7 +44,9 @@ const Editproduct: React.FC = () => {
 
   const loadProduct = async () => {
     try {
-      const result = await axios.get<Product>(`http://localhost:8080/product/${id}`);
+      const result = await axios.get<Product>(
+        `http://localhost:8080/product/${id}`
+      );
       setProduct(result.data);
     } catch (error) {
       console.error("Error loading product:", error);

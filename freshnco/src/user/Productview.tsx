@@ -15,14 +15,16 @@ interface Product {
 const Productview: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   useEffect(() => {
     loadProducts();
   }, []);
 
   const loadProducts = async () => {
     try {
-      const result = await axios.get<Product[]>("http://localhost:8080/products");
+      const result = await axios.get<Product[]>(
+        "http://localhost:8080/products"
+      );
       setProducts(result.data);
     } catch (error) {
       console.error("Error loading products:", error);
@@ -60,11 +62,27 @@ const Productview: React.FC = () => {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{product.name}</td>
-                <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</td>
-                <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.imgurl}</td>
+                <td
+                  style={{
+                    maxWidth: "150px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {product.description}
+                </td>
+                <td
+                  style={{
+                    maxWidth: "150px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {product.imgurl}
+                </td>
                 <td>{product.seller}</td>
                 <td>{product.price}</td>
-                <td>{product.classification}</td> 
+                <td>{product.classification}</td>
                 <td>
                   <Link
                     className="btn btn-primary mx-2"
@@ -89,10 +107,7 @@ const Productview: React.FC = () => {
             ))}
           </tbody>
         </table>
-        <Link
-          className="btn btn-outline-primary mx-2"
-          to={`/addproduct`}
-        >
+        <Link className="btn btn-outline-primary mx-2" to={`/addproduct`}>
           Add product
         </Link>
       </div>
