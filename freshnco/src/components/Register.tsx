@@ -90,7 +90,7 @@ function Register() {
 
     if (validateForm()) {
       const pendingToastId = toast.info(
-        "Signing up... (Sorry for the cold boot)",
+        "😀 Signing up... (Sorry for the cold boot)",
         { autoClose: false }
       );
       try {
@@ -214,7 +214,7 @@ function Register() {
                 <div className="text_center">
                   <p>Existing user</p>
                   <button
-                    type="submit"
+                    onClick={()=>{navigate("/login")}}
                     className="btn btn-primary btn-block mb-4"
                     id="button1"
                   >
