@@ -199,10 +199,9 @@ const Cart: React.FC = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
+        onClose: () => navigate("/products"),
       });
-      setTimeout(() => {
-        navigate("/products");
-      }, 5000);
+      
     } else {
       navigate(`/payment/${userid}`);
     }
