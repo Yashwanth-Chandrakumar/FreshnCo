@@ -191,7 +191,7 @@ const Cart: React.FC = () => {
     if (totalCostAsNumber <= 40) {
       alert("Add items to the cart to purchase something");
     } else {
-      navigate(`/${userid}/payment`);
+      navigate(`/payment/${userid}`);
     }
   };
   return (

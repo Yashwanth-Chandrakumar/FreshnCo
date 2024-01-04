@@ -85,7 +85,6 @@ const Payment: React.FC = () => {
   const cart = useSelector(
     (state: { cartReducer: { cart: CartItem[] } }) => state.cartReducer.cart
   );
-  
 
   return (
     <div>

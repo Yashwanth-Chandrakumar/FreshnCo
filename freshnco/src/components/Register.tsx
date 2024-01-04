@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
@@ -8,6 +8,10 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
 import axios from "axios";
 import regimg from "../assets/images/3945191.jpg";
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Register() {
   let navigate = useNavigate();
   useEffect(() => {
@@ -22,31 +26,93 @@ function Register() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+  });
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const { fname, lname, email, password } = user;
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { fname: "", lname: "", email: "", password: "" };
+
+    // Validate First Name
+    if (user.fname.trim() === "") {
+      isValid = false;
+      newErrors.fname = "First Name is required";
+    }
+
+    // Validate Last Name
+    if (user.lname.trim() === "") {
+      isValid = false;
+      newErrors.lname = "Last Name is required";
+    }
+
+    // Validate Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+      isValid = false;
+      newErrors.email = "Invalid email address";
+    }
+
+    // Validate Password
+    const passregex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!passregex.test(user.password)) {
+      isValid = false;
+      newErrors.password =
+        "Password must be a combination of capital and small letters along with symbols and numbers of length 8";
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
       [e.target.id]: e.target.value,
     });
+    setErrors({
+      ...errors,
+      [e.target.id]: "",
+    });
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await axios.post("https://freshnco.onrender.com/user", user);
-      console.log("Data successfully sent to the server!");
-      navigate("/login");
-    } catch (error) {
-      console.error("Error sending data to the server:", error);
+
+    if (validateForm()) {
+      const pendingToastId = toast.info("Signing up...", { autoClose: false });
+      try {
+        await axios.post("https://freshnco.onrender.com/user", user);
+        console.log("Data successfully sent to the server!");
+        toast.update(pendingToastId, {
+          render: "Login to continue",
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2000,
+          onClose: () => navigate("/login"),
+        });
+      } catch (error) {
+        console.error("Error sending data to the server:", error);
+        toast.update(pendingToastId, {
+          render: "Error during login.",
+          type: toast.TYPE.ERROR,
+          autoClose: 5000,
+        });
+      }
     }
   };
 
   return (
     <div className="container py-4">
+      <ToastContainer />
       <div className="row g-0 align-items-center">
         <div className="col-lg-6 mb-5 mb-lg-0">
           <div className="card cascading-right">
@@ -61,11 +127,12 @@ function Register() {
                       <input
                         type="text"
                         id="fname"
-                        value={fname}
+                        value={user.fname}
                         onChange={handleChange}
                         className="form-control"
                       />
                       <label className="form-label">First Name</label>
+                      <div className="text-danger">{errors.fname}</div>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4">
@@ -73,11 +140,12 @@ function Register() {
                       <input
                         type="text"
                         id="lname"
-                        value={lname}
+                        value={user.lname}
                         onChange={handleChange}
                         className="form-control"
                       />
                       <label className="form-label">Last Name</label>
+                      <div className="text-danger">{errors.lname}</div>
                     </div>
                   </div>
                 </div>
@@ -85,18 +153,19 @@ function Register() {
                   <input
                     type="email"
                     id="email"
-                    value={email}
+                    value={user.email}
                     onChange={handleChange}
                     className="form-control"
                   />
                   <label className="form-label">Email address</label>
+                  <div className="text-danger">{errors.email}</div>
                 </div>
 
                 <div className="form-outline mb-4">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
-                    value={password}
+                    value={user.password}
                     onChange={handleChange}
                     className="form-control"
                   />
@@ -112,6 +181,7 @@ function Register() {
                       <VisibilityOffIcon className="eye" fontSize="small" />
                     )}
                   </button>
+                  <div className="text-danger">{errors.password}</div>
                 </div>
                 <div className="form-check d-flex justify-content-center mb-4">
                   <input
@@ -140,13 +210,13 @@ function Register() {
                 </div>
                 <div className="text_center">
                   <p>Existing user</p>
-                  <Link
-                    to="/login"
+                  <button
+                    type="submit"
                     className="btn btn-primary btn-block mb-4"
                     id="button1"
                   >
                     Sign in
-                  </Link>
+                  </button>
                 </div>
               </form>
             </div>

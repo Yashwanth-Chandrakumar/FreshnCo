@@ -5,7 +5,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { ChangeEvent, FormEvent, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import axios from "axios"
+import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import login from "../assets/images/7706807.jpg";
@@ -37,12 +37,15 @@ function Login() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Show a pending toast
-    const pendingToastId = toast.info(" Logging in...", { autoClose: false });
-  
+    const pendingToastId = toast.info(" Signing in...", { autoClose: false });
+
     try {
-      const response = await axios.post("https://freshnco.onrender.com/", loginData);
+      const response = await axios.post(
+        "https://freshnco.onrender.com/",
+        loginData
+      );
       const successMessage = "Login successful";
-  
+
       if (response.data.startsWith(successMessage)) {
         // Handle success
         const responseMessage = response.data
@@ -60,29 +63,47 @@ function Login() {
         if (loginData.email === "yashwanth2k05@gmail.com") {
           localStorage.setItem("admin", "true");
           // Close the pending toast and show success toast
-          toast.update(pendingToastId, { render: "Login successful", type: toast.TYPE.SUCCESS, autoClose: 2000, onClose: () => navigate("/admin") });
+          toast.update(pendingToastId, {
+            render: "Login successful",
+            type: toast.TYPE.SUCCESS,
+            autoClose: 2000,
+            onClose: () => navigate("/admin"),
+          });
         } else {
           localStorage.setItem("admin", "false");
           // Close the pending toast and show success toast
-          toast.update(pendingToastId, { render: "Login successful", type: toast.TYPE.SUCCESS, autoClose: 2000, onClose: () => navigate("/") });
+          toast.update(pendingToastId, {
+            render: "Login successful",
+            type: toast.TYPE.SUCCESS,
+            autoClose: 2000,
+            onClose: () => navigate("/"),
+          });
         }
       } else {
         console.error("Unexpected response format:", response.data);
         setValid(false);
         // Close the pending toast and show error toast
-        toast.update(pendingToastId, { render: "Error during login.", type: toast.TYPE.ERROR, autoClose: 5000 });
+        toast.update(pendingToastId, {
+          render: "Error during login.",
+          type: toast.TYPE.ERROR,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error("Error during login:", error);
       setValid(false);
       // Close the pending toast and show error toast
-      toast.update(pendingToastId, { render: "Error during login.", type: toast.TYPE.ERROR, autoClose: 5000 });
+      toast.update(pendingToastId, {
+        render: "Error during login.",
+        type: toast.TYPE.ERROR,
+        autoClose: 5000,
+      });
     }
   };
-  
+
   return (
     <div className="container py-4">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="row g-0 align-items-center">
         <div className="col-lg-6 mb-5 mb-lg-0">
           <div id="lgcard" className="card cascading-right">
