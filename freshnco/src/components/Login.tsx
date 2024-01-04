@@ -37,7 +37,10 @@ function Login() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Show a pending toast
-    const pendingToastId = toast.info(" Signing in...", { autoClose: false });
+    const pendingToastId = toast.info(
+      "😁 Signing in... (Sorry for the cold boot) ",
+      { autoClose: false }
+    );
 
     try {
       const response = await axios.post(
@@ -73,7 +76,7 @@ function Login() {
           localStorage.setItem("admin", "false");
           // Close the pending toast and show success toast
           toast.update(pendingToastId, {
-            render: "Login successful",
+            render: "👍 Login successful",
             type: toast.TYPE.SUCCESS,
             autoClose: 2000,
             onClose: () => navigate("/"),
@@ -84,7 +87,7 @@ function Login() {
         setValid(false);
         // Close the pending toast and show error toast
         toast.update(pendingToastId, {
-          render: "Error during login.",
+          render: "😔 Error during login.",
           type: toast.TYPE.ERROR,
           autoClose: 5000,
         });
@@ -94,7 +97,7 @@ function Login() {
       setValid(false);
       // Close the pending toast and show error toast
       toast.update(pendingToastId, {
-        render: "Error during login.",
+        render: "😔 Error during login.",
         type: toast.TYPE.ERROR,
         autoClose: 5000,
       });

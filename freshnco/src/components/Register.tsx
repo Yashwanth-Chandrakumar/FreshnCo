@@ -89,12 +89,15 @@ function Register() {
     e.preventDefault();
 
     if (validateForm()) {
-      const pendingToastId = toast.info("Signing up...", { autoClose: false });
+      const pendingToastId = toast.info(
+        "Signing up... (Sorry for the cold boot)",
+        { autoClose: false }
+      );
       try {
         await axios.post("https://freshnco.onrender.com/user", user);
         console.log("Data successfully sent to the server!");
         toast.update(pendingToastId, {
-          render: "Login to continue",
+          render: "🌞 Login to continue",
           type: toast.TYPE.SUCCESS,
           autoClose: 2000,
           onClose: () => navigate("/login"),
@@ -102,7 +105,7 @@ function Register() {
       } catch (error) {
         console.error("Error sending data to the server:", error);
         toast.update(pendingToastId, {
-          render: "Error during login.",
+          render: "😔 Error during login.",
           type: toast.TYPE.ERROR,
           autoClose: 5000,
         });

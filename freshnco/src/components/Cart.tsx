@@ -38,6 +38,7 @@ import img23 from "../assets/icons/icon_23.png";
 import img24 from "../assets/icons/icon_24.png";
 import { useNavigate } from "react-router-dom";
 import localStorage from "redux-persist/es/storage";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Product {
   id: string;
@@ -182,20 +183,33 @@ const Cart: React.FC = () => {
     delivery -
     calculateTotalDiscount()
   ).toFixed(2);
-  
+
   const Checkout = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(e);
     dispatch(setTotalCost(parseFloat(totalcost)));
     const totalCostAsNumber = parseFloat(totalcost);
 
     if (totalCostAsNumber <= 40) {
-      alert("Add items to the cart to purchase something");
+      toast.warning("🦄 Add something to cart baby", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("/products");
+      }, 5000);
     } else {
       navigate(`/payment/${userid}`);
     }
   };
   return (
     <div>
+      <ToastContainer />
       <NavBar />
       <div className="cart-content">
         {cart.length === 0 ? (
