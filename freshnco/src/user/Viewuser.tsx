@@ -28,7 +28,7 @@ const Viewuser: React.FC = () => {
   const loadUser = async () => {
     try {
       const result = await axios.get<User>(
-        `http://localhost:8080/user/${id}`
+        `https://freshnco.onrender.com/user/${id}`
       );
       setUser(result.data);
     } catch (error) {

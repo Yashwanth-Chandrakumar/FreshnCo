@@ -32,7 +32,7 @@ const Viewproduct: React.FC = () => {
   const loadProduct = async () => {
     try {
       const result = await axios.get<Product>(
-        `http://localhost:8080/product/${id}`
+        `https://freshnco.onrender.com/product/${id}`
       );
       setProduct(result.data);
     } catch (error) {

@@ -34,7 +34,7 @@ const AddProduct: React.FC = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await axios.post("http://localhost:8080/product", product);
+    await axios.post("https://freshnco.onrender.com/product", product);
     navigate("/admin");
   };
 

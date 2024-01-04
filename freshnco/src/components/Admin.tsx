@@ -25,7 +25,9 @@ const Admin: React.FC = () => {
 
   const loadUsers = async () => {
     try {
-      const result = await axios.get<User[]>("http://localhost:8080/users");
+      const result = await axios.get<User[]>(
+        "https://freshnco.onrender.com/users"
+      );
       setUsers(result.data);
     } catch (error) {
       console.error("Error loading users:", error);
@@ -34,7 +36,7 @@ const Admin: React.FC = () => {
 
   const deleteUser = async (userId: number) => {
     try {
-      await axios.delete(`http://localhost:8080/user/${userId}`);
+      await axios.delete(`https://freshnco.onrender.com/user/${userId}`);
       loadUsers();
     } catch (error) {
       console.error("Error deleting user:", error);

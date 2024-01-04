@@ -32,7 +32,7 @@ export default function Productbuy() {
 
   const loadProducts = async () => {
     try {
-      const result = await axios.get("http://localhost:8080/products");
+      const result = await axios.get("https://freshnco.onrender.com/products");
       console.log("Products received", result.data);
       setProducts(result.data);
     } catch (error) {

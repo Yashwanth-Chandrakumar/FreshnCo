@@ -32,13 +32,15 @@ const Edituser: React.FC = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/user/${id}`, user);
+    await axios.put(`https://freshnco.onrender.com/user/${id}`, user);
     navigate("/admin");
   };
 
   const loadUser = async () => {
     try {
-      const result = await axios.get<User>(`http://localhost:8080/user/${id}`);
+      const result = await axios.get<User>(
+        `https://freshnco.onrender.com/user/${id}`
+      );
       setUser(result.data);
     } catch (error) {
       console.error("Error loading user:", error);

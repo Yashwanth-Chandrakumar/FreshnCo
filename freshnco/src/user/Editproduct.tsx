@@ -38,14 +38,14 @@ const Editproduct: React.FC = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/product/${id}`, product);
+    await axios.put(`https://freshnco.onrender.com/product/${id}`, product);
     navigate("/admin");
   };
 
   const loadProduct = async () => {
     try {
       const result = await axios.get<Product>(
-        `http://localhost:8080/product/${id}`
+        `https://freshnco.onrender.com/product/${id}`
       );
       setProduct(result.data);
     } catch (error) {

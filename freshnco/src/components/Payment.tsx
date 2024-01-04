@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import NavBar from "./Navbar";
-import { deleteCartItem } from "../store/CartSlice";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import { useEffect } from "react";
@@ -61,7 +59,9 @@ const Payment: React.FC = () => {
   }, []);
   const loadUser = async () => {
     try {
-      const result = await axios.get<User>(`http://localhost:8080/user/${id}`);
+      const result = await axios.get<User>(
+        `https://freshnco.onrender.com/user/${id}`
+      );
       setUser(result.data);
     } catch (error) {
       console.error("Error loading user:", error);
@@ -71,7 +71,7 @@ const Payment: React.FC = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/user/${id}`, user);
+      await axios.put(`https://freshnco.onrender.com/user/${id}`, user);
       console.log("User details updated successfully");
     } catch (error) {
       console.error("Error updating user details:", error);
@@ -85,8 +85,7 @@ const Payment: React.FC = () => {
   const cart = useSelector(
     (state: { cartReducer: { cart: CartItem[] } }) => state.cartReducer.cart
   );
-  const dispatch = useDispatch();
-
+  
 
   return (
     <div>
@@ -116,9 +115,7 @@ const Payment: React.FC = () => {
 
                   <p>Qty: {cartItem.quantity}</p>
                 </div>
-                <div className="payment-cart-buttons">
-                  
-                </div>
+                <div className="payment-cart-buttons"></div>
               </li>
             ))}
           </ul>
@@ -237,9 +234,7 @@ const Payment: React.FC = () => {
             </div>
           </form>
         </div>
-        <div className="payment-credit">
-          Payment card
-        </div>
+        <div className="payment-credit">Payment card</div>
       </div>
     </div>
   );

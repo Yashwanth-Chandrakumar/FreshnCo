@@ -27,7 +27,7 @@ const AddUser: React.FC = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await axios.post("http://localhost:8080/user", user);
+    await axios.post("https://freshnco.onrender.com/user", user);
     navigate("/admin");
   };
 

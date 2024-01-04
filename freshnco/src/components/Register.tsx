@@ -37,7 +37,7 @@ function Register() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/user", user);
+      await axios.post("https://freshnco.onrender.com/user", user);
       console.log("Data successfully sent to the server!");
       navigate("/login");
     } catch (error) {

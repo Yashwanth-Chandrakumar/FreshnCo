@@ -23,7 +23,7 @@ const Productview: React.FC = () => {
   const loadProducts = async () => {
     try {
       const result = await axios.get<Product[]>(
-        "http://localhost:8080/products"
+        "https://freshnco.onrender.com/products"
       );
       setProducts(result.data);
     } catch (error) {
@@ -33,7 +33,7 @@ const Productview: React.FC = () => {
 
   const deleteProduct = async (productId: number) => {
     try {
-      await axios.delete(`http://localhost:8080/product/${productId}`);
+      await axios.delete(`https://freshnco.onrender.com/product/${productId}`);
       loadProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
