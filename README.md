@@ -1,39 +1,45 @@
----
-description: React Project
----
+# Fresh & Co.
 
-# CC 1
+# Login Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20090602.png">
 
-## Fresh @ Co. - Is a online web store for organic fruits and veggies.
+# Register Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20090620.png">
 
-## Intro - 1:
+# Home Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091149.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 142851.png" alt=""><figcaption></figcaption></figure>
+# Home Page - Dark Mode
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091344.png">
 
-## Intro - 2 Carousel:
+# Home Page - Popup
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-22%20101038.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 142907.png" alt=""><figcaption></figcaption></figure>
+# Footer
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091205.png">
 
-## Intro - 3 Footer:
+# Products
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091226.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 142929.png" alt=""><figcaption></figcaption></figure>
+# Products - Search feature
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091446.png">
 
-## Login:
+# Cart Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091255.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 142947.png" alt=""><figcaption></figcaption></figure>
+# Dashboard Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091318.png">
 
-## Register:
+# Dashboard Page - Dark Mode
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091330.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 143001.png" alt=""><figcaption></figcaption></figure>
+# Admin Page
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091116.png">
 
-## Dark Mode:
+# Admin Page - Products edit
+<img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20091134.png">
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 143025.png" alt=""><figcaption></figcaption></figure>
 
-## Products Page:
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 155143.png" alt=""><figcaption></figcaption></figure>
 
-## Isometric Product Display Page:
 
-<figure><img src=".gitbook/assets/Screenshot 2023-12-13 155204.png" alt=""><figcaption></figcaption></figure>
