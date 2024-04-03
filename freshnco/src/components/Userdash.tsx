@@ -5,6 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import * as CryptoJS from 'crypto-js';
+
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 export default function () {
   let navigate = useNavigate();
 
@@ -16,7 +25,10 @@ export default function () {
     navigate('/login');
   };
 
-  let name = localStorage.getItem('name') ?? '';
+  const encryptedName = localStorage.getItem('name');
+const name = encryptedName ? decryptData(encryptedName) : '';
+const encryptedEmail = localStorage.getItem('email');
+const email = encryptedEmail ? decryptData(encryptedEmail) : '';
   localStorage.setItem('livetab', 'dash');
   const items = [
     { name: 'Spinach', description: 'Rich in iron, vitamins A, C, and K' },
@@ -45,10 +57,10 @@ export default function () {
           </Avatar>
           <div>
             <p>
-              Name: <span>{localStorage.getItem('name')}</span>
+              Name: <span>{name}</span>
             </p>
             <p>
-              Email: <span>{localStorage.getItem('email')}</span>
+              Email: <span>{email}</span>
             </p>
           </div>
           <button

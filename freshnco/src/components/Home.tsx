@@ -7,7 +7,15 @@ import Navbar from "./Navbar";
 import { Link, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import Loader from './Loader';
+import * as CryptoJS from 'crypto-js';
 
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +29,9 @@ export default function Home() {
   }, []);
 
   localStorage.setItem("livetab", "home");
-  let name = localStorage.getItem("name");
+  const encryptedName = localStorage.getItem('name');
+const name = encryptedName ? decryptData(encryptedName) : '';
+
   let navigate = useNavigate();
 
   const handlePress = (event: React.KeyboardEvent<HTMLInputElement>) => {

@@ -5,7 +5,15 @@ import Productview from "../user/Productview";
 import Adminnav from "./Adminnav";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import * as CryptoJS from 'crypto-js';
 
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 interface User {
   id: number;
   fname: string;
@@ -52,6 +60,8 @@ const Admin: React.FC = () => {
       }
     });
   };
+  const encryptedName = localStorage.getItem('name');
+const name = encryptedName ? decryptData(encryptedName) : '';
 
   return (
     <>
@@ -69,7 +79,7 @@ const Admin: React.FC = () => {
           <h1>
             Welcome{" "}
             <span style={{ color: "var(--btncolor)" }}>
-              {localStorage.getItem("name")}
+              {name}
             </span>
           </h1>
           <h2>You are one of our esteemed admin.</h2>

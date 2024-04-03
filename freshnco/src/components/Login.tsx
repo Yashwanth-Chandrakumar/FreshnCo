@@ -9,6 +9,21 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import login from "../assets/images/7706807.jpg";
+import * as CryptoJS from 'crypto-js';
+
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const encryptData = (data: string) => {
+  const ciphertext = CryptoJS.AES.encrypt(data, SECRET_KEY).toString();
+  return ciphertext;
+};
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
+
 function Login() {
   let navigate = useNavigate();
   const [loginData, setLoginData] = useState({
@@ -22,10 +37,13 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("auth") === "true") {
+    const encryptedAuth = localStorage.getItem("auth");
+    const auth = encryptedAuth ? decryptData(encryptedAuth) : "";
+    if (auth === "true") {
       navigate("/");
     }
   }, []);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginData({
       ...loginData,
@@ -57,14 +75,14 @@ function Login() {
         const [userName, userId] = responseMessage.split(",");
         const cleanedUserName = userName.replace(/[\[\]\s]+/g, "");
         const cleanedUserId = userId.replace(/[\[\]\s]+/g, "");
-        localStorage.setItem("name", cleanedUserName);
-        localStorage.setItem("userId", cleanedUserId);
+        localStorage.setItem("name", encryptData(cleanedUserName));
+        localStorage.setItem("userId", encryptData(cleanedUserId));
         console.log("Welcome, " + userName + userId);
-        localStorage.setItem("auth", "true");
+        localStorage.setItem("auth", encryptData("true"));
         setValid(true);
-        localStorage.setItem("email", loginData.email);
+        localStorage.setItem("email", encryptData(loginData.email));
         if (loginData.email === "yashwanth2k05@gmail.com") {
-          localStorage.setItem("admin", "true");
+          localStorage.setItem("admin", encryptData("true"));
           // Close the pending toast and show success toast
           toast.update(pendingToastId, {
             render: "Login successful",
@@ -73,7 +91,7 @@ function Login() {
             onClose: () => navigate("/admin"),
           });
         } else {
-          localStorage.setItem("admin", "false");
+          localStorage.setItem("admin", encryptData("false"));
           // Close the pending toast and show success toast
           toast.update(pendingToastId, {
             render: "👍 Login successful",
@@ -103,6 +121,7 @@ function Login() {
       });
     }
   };
+
 
   return (
     <div className="container py-4">

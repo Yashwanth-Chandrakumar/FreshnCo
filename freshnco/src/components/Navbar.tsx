@@ -5,13 +5,30 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import Badge, { BadgeProps } from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
+import * as CryptoJS from 'crypto-js';
+
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 function NavBar() {
   let navigate = useNavigate();
   let tab = localStorage.getItem("livetab");
-  let auth = localStorage.getItem("auth");
-  let name = localStorage.getItem("name")??"";
-  let admin = localStorage.getItem("admin");
+  const encryptedName = localStorage.getItem('name');
+const name = encryptedName ? decryptData(encryptedName) : '';
+
+// Decrypt admin
+const encryptedAdmin = localStorage.getItem('admin');
+const admin = encryptedAdmin ? decryptData(encryptedAdmin) : '';
+
+
+// Decrypt auth
+const encryptedAuth = localStorage.getItem('auth');
+const auth = encryptedAuth ? decryptData(encryptedAuth) : '';
 
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     let txt = e.currentTarget.textContent;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "./Navbar";
 import { nanoid } from "nanoid";
@@ -39,7 +39,15 @@ import img24 from "../assets/icons/icon_24.png";
 import { useNavigate } from "react-router-dom";
 import localStorage from "redux-persist/es/storage";
 import { ToastContainer, toast } from "react-toastify";
+import * as CryptoJS from 'crypto-js';
 
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 interface Product {
   id: string;
   name: string;
@@ -99,7 +107,19 @@ const Cart: React.FC = () => {
     }[]
   >([]);
   const localStorageTab = "cart";
-  let userid = localStorage.getItem("userId");
+  const [userid, setUserid] = useState<string | null>(null);
+
+  useEffect(() => {
+      const fetchUserId = async () => {
+          const encryptedUserId = await localStorage.getItem('userId');
+          if (encryptedUserId) {
+              const decryptedUserId = decryptData(encryptedUserId);
+              setUserid(decryptedUserId);
+          }
+      };
+      fetchUserId();
+  }, []);
+
   localStorage.setItem("livetab", localStorageTab);
 
   const cart = useSelector((state: any) => state.cartReducer.cart);

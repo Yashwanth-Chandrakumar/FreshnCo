@@ -8,17 +8,28 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
 import axios from "axios";
 import regimg from "../assets/images/3945191.jpg";
-
+import * as CryptoJS from 'crypto-js';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext:string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 
 function Register() {
   let navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem("auth") === "true") {
+    const encryptedAuth = localStorage.getItem("auth");
+    const auth = encryptedAuth ? decryptData(encryptedAuth) : "";
+    if (auth === "true") {
       navigate("/");
     }
   }, []);
+
   const [user, setUser] = useState({
     fname: "",
     lname: "",
@@ -112,6 +123,7 @@ function Register() {
       }
     }
   };
+
 
   return (
     <div className="container py-4">

@@ -4,10 +4,21 @@ import NavBar from "./Navbar";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
 import { useNavigate } from "react-router-dom";
+import * as CryptoJS from 'crypto-js';
+
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
+
 export default function Productbuy() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  let auth = localStorage.getItem("auth");
+  const encryptedAuth = localStorage.getItem('auth');
+const auth = encryptedAuth ? decryptData(encryptedAuth) : '';
   if (auth === "false") {
     navigate("/login");
   }
@@ -59,7 +70,8 @@ export default function Productbuy() {
     dispatch(addToCart({ ...product, id: productId }));
   };
 
-  let name = localStorage.getItem("name");
+  const encryptedName = localStorage.getItem('name');
+const name = encryptedName ? decryptData(encryptedName) : '';
 
   return (
     <div>

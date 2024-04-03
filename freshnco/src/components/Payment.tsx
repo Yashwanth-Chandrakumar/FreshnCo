@@ -4,7 +4,15 @@ import { useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import * as CryptoJS from 'crypto-js';
 
+const SECRET_KEY = 'e#4@X2!p9Zb$uYq6';
+
+const decryptData = (ciphertext: string) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+};
 interface Product {
   id: string;
   name: string;
@@ -47,7 +55,9 @@ const Payment: React.FC = () => {
     pincode: "",
   });
   const { fname, lname, email, phone, address, city, state, pincode } = user;
-  let id = localStorage.getItem("userId");
+  const encryptedUserId = localStorage.getItem('userId');
+const id = encryptedUserId ? decryptData(encryptedUserId) : '';
+
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log("Input changed:", e.target.id, e.target.value);
