@@ -2,15 +2,15 @@
 
 # Info:
 
-Frontend - React
-Backend - Springboot
-Database - MySQL
+Frontend - React <br>
+Backend - Springboot <br>
+Database - MySQL <br>
 
 # Deployment and Hosting:
 
-Frontend - Netlify
-Backend - Render
-Database - Clever Cloud
+Frontend - Netlify <br>
+Backend - Render <br>
+Database - Clever Cloud <br>
 
 # Login Page
 <img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20090602.png">
