@@ -1,5 +1,17 @@
 # Fresh & Co.
 
+# Info:
+
+Frontend - React
+Backend - Springboot
+Database - MySQL
+
+# Deployment and Hosting:
+
+Frontend - Netlify
+Backend - Render
+Database - Clever Cloud
+
 # Login Page
 <img src="https://github.com/Yashwanth-Chandrakumar/REACT_IRC/blob/main/CC2/Screenshot%202023-12-21%20090602.png">
 
